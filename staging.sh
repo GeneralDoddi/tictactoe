@@ -10,6 +10,7 @@ echo "Insalling jshint"
 npm install jshint
 npm install chalk
 npm install maxmin
+npm install less
 echo "Installing bower"
 npm install bower
 echo "Npm install"
