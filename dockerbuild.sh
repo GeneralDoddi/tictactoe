@@ -12,7 +12,7 @@ cp ./Dockerfile ./dist/
 cd dist
 npm install --production
 
-echo Building docker image
+echo "Building docker image"
 docker build -t generaldoddi/tictactoe .
 
 echo "Done"

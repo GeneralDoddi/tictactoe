@@ -4,13 +4,13 @@ rm -rf ./dist
 ln -s /usr/bin/nodejs /usr/bin/node
 echo "Installing grunt"
 npm install grunt
-echo "Installing hooker"
-npm install hooker
-echo "Insalling jshint"
-npm install jshint
-npm install chalk
-npm install maxmin
-npm install less
+#echo "Installing hooker"
+#npm install hooker
+#echo "Insalling jshint"
+#npm install jshint
+#npm install chalk
+#npm install maxmin
+#npm install less
 echo "Installing bower"
 npm install bower
 echo "Npm install"
