@@ -16,4 +16,13 @@ echo "Bower install"
 bower install
 echo "Running grunt"	
 grunt
+echo "Pushing successful build on docker"
+cp ./Dockerfile ./dist/
+
+cd dist
+npm install --production
+
+echo Building docker image
+docker build -t generaldoddi/tictactoe .
+
 echo "Done"
