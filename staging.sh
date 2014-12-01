@@ -7,7 +7,7 @@ echo "Installing grunt"
 echo "Installing hooker"
 #npm install hooker
 echo "Insalling jshint"
-npm install jshint
+#npm install jshint
 echo "Installing bower"
 #npm install bower
 echo "Npm install"
