@@ -16,12 +16,9 @@ echo "Pushing successful build on docker"
 cp ./Dockerfile ./dist/
 
 cd dist
-#npm install --production
+npm install --production
 
 echo "Building docker image"
-#docker build -t generaldoddi/tictactoe .
-
-echo "Pushing docker build"
-#docker push generaldoddi/tictactoe
+docker build -t generaldoddi/tictactoe .
 
 echo "Done"
