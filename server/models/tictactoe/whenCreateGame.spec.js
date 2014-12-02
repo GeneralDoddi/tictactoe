@@ -4,14 +4,15 @@
 var should = require('should');
 var _ = require('lodash');
 
-var tictactoe = [{
+var tictactoe = require('./tictactoe.js');
+  /*[{
   event:"GameCreated",
   user:{
     userName:"Doddi"
   },
   name:"GameOfLife",
   timeStamp:"2014-01-01T03:06:00"
-}];
+}];*/
 
 describe('create game command', function(){
 
@@ -36,9 +37,11 @@ describe('create game command', function(){
       timeStamp:"2014-01-01T03:06:00"
 
     }];
-    should(tictactoe.length).be.exactly(1);
 
-    should(JSON.stringify(tictactoe)).be.exactly(JSON.stringify(then));
+    var actualEvents = tictactoe().executeCommand(when);
+    should(actualEvents.length).be.exactly(1);
+
+    should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then));
   });
 
 
