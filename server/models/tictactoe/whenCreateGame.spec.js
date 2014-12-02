@@ -4,7 +4,14 @@
 var should = require('should');
 var _ = require('lodash');
 
-var tictactoe = [{}];
+var tictactoe = [{
+  event:"GameCreated",
+  user:{
+    userName:"Doddi"
+  },
+  name:"GameOfLife",
+  timeStamp:"2014-01-01T03:06:00"
+}];
 
 describe('create game command', function(){
 
@@ -21,7 +28,7 @@ describe('create game command', function(){
     };
 
     var then = [{
-      cmd: "GameCreated",
+      event: "GameCreated",
       user:{
         userName:"Doddi"
       },
@@ -29,7 +36,10 @@ describe('create game command', function(){
       timeStamp:"2014-01-01T03:06:00"
 
     }];
+    should(tictactoe.length).be.exactly(1);
+
+    should(JSON.stringify(tictactoe)).be.exactly(JSON.stringify(then));
   });
-  //should(1).be.exactly(1);
-  should(tictactoe.length).be.exactly(1);
+
+
 });
