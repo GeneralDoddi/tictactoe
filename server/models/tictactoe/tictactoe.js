@@ -14,7 +14,16 @@ module.exports = function(){
               name: cmd.name,
               timeStamp: cmd.timeStamp
             }]
+          },
+          "JoinGame": function(cmd){
+            return [{
+              event: "GameJoined",
+              user: cmd.user,
+              name: cmd.name,
+              timeStamp: cmd.timeStamp
+            }]
           }
+
       }
       return cmdHandler[cmd.cmd](cmd);
     }
