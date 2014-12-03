@@ -8,39 +8,64 @@ describe('make move command', function(){
 
   var tictactoe = require('./tictactoe.js');
 
-  it('should emit move made event', function(){
+  var createGameEvent = {
+    event: "GameCreated",
+    user:{
+      userName:"Doddi"
+    },
+    name:"GameOfLife",
+    timeStamp:"2014-01-01T03:06:00"
 
-    var given = [{
-      event: "GameCreated",
-      user:{
-        userName:"Doddi"
-      },
-      name:"GameOfLife",
-      timeStamp:"2014-01-01T03:06:00"
+  };
 
-      },
-      {
-        event: "GameJoined",
-        user:{
-          userName:"Gangsterinn"
-        },
-        name:"GameOfLife",
-        timeStamp:"2014-01-01T03:08:00"
+  var joinGameEvent = {
+    event: "GameJoined",
+    user:{
+      userName:"Gangsterinn"
+    },
+    name:"GameOfLife",
+    timeStamp:"2014-01-01T03:08:00"
 
-      }];
+  };
 
-    var when = {
+  var makeMoveEvent = function(name, coords, symbol){
+    return{
       cmd:"MakeMove",
       user:{
-        userName:"Doddi"
+        userName: name
       },
-      move:{
-        coords:"0",
-        symbol:"X"
+      move: {
+        coords: coords,
+        symbol: symbol
       },
       name:"GameOfLife",
       timeStamp:"2014-01-01T03:12:00"
-    };
+    }
+  };
+
+  var moveMadeEvent = function(name, coords, symbol){
+    return{
+      event:"MoveMade",
+      user:{
+        userName: name
+      },
+      move:{
+        coords: coords,
+        symbol: symbol
+      },
+      name:"GameOfLife",
+      timeStamp:"2014-01-01T03:12:00"
+    }
+  };
+
+  it('should emit move made event', function(){
+
+    var given = [
+      createGameEvent,
+      joinGameEvent
+    ]
+
+    var when = makeMoveEvent("Doddi","0","X");
 
     var then = [{
       event:"MoveMade",
@@ -61,50 +86,13 @@ describe('make move command', function(){
   });
 
   it('should reject move when spot taken', function(){
-    var given = [{
-      event: "GameCreated",
-      user:{
-        userName:"Doddi"
-      },
-      name:"GameOfLife",
-      timeStamp:"2014-01-01T03:06:00"
-
-    },
-      {
-        event: "GameJoined",
-        user:{
-          userName:"Gangsterinn"
-        },
-        name:"GameOfLife",
-        timeStamp:"2014-01-01T03:08:00"
-
-      },
-      {
-        event:"MoveMade",
-        user:{
-          userName:"Doddi"
-        },
-        move:{
-          coords:"2",
-          symbol:"X"
-        },
-        name:"GameOfLife",
-        timeStamp:"2014-01-01T03:12:00"
-      }
+    var given = [
+      createGameEvent,
+      joinGameEvent,
+      moveMadeEvent("Doddi","2","X")
     ];
 
-    var when = {
-      cmd:"MakeMove",
-      user:{
-        userName:"Gangsterinn"
-      },
-      move:{
-        coords:"2",
-        symbol:"X"
-      },
-      name:"GameOfLife",
-      timeStamp:"2014-01-01T03:12:12"
-    };
+    var when = makeMoveEvent("Gangsterinn","2","O");
 
     var then = [{
       event:"IllegalMove",
@@ -113,10 +101,10 @@ describe('make move command', function(){
       },
       move:{
         coords:"2",
-        symbol:"X"
+        symbol:"O"
       },
       name:"GameOfLife",
-      timeStamp:"2014-01-01T03:12:12"
+      timeStamp:"2014-01-01T03:12:00"
     }];
 
     var actualEvent = tictactoe(given).executeCommand(when);
@@ -125,50 +113,13 @@ describe('make move command', function(){
 
   it('should emit reject move when not player turn', function(){
     // BROKEN TEST
-    var given = [{
-      event: "GameCreated",
-      user:{
-        userName:"Doddi"
-      },
-      name:"GameOfLife",
-      timeStamp:"2014-01-01T03:06:00"
-
-    },
-      {
-        event: "GameJoined",
-        user:{
-          userName:"Gangsterinn"
-        },
-        name:"GameOfLife",
-        timeStamp:"2014-01-01T03:08:00"
-
-      },
-      {
-        event:"MoveMade",
-        user:{
-          userName:"Doddi"
-        },
-        move:{
-          coords:"0",
-          symbol:"X"
-        },
-        name:"GameOfLife",
-        timeStamp:"2014-01-01T03:12:00"
-      }
+    var given = [
+      createGameEvent,
+      joinGameEvent,
+      moveMadeEvent("Doddi","2","X")
     ];
 
-    var when = {
-      cmd:"MakeMove",
-      user:{
-        userName:"Doddi"
-      },
-      move:{
-        coords:"1",
-        symbol:"X"
-      },
-      name:"GameOfLife",
-      timeStamp:"2014-01-01T03:12:12"
-    };
+    var when = makeMoveEvent("Doddi","1","X");
 
     var then = [{
       event:"NotPlayerTurn",
@@ -180,7 +131,7 @@ describe('make move command', function(){
         symbol:"X"
       },
       name:"GameOfLife",
-      timeStamp:"2014-01-01T03:12:12"
+      timeStamp:"2014-01-01T03:12:00"
     }];
 
     var actualEvent = tictactoe(given).executeCommand(when);

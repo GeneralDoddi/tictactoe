@@ -8,26 +8,32 @@ var tictactoe = require('./tictactoe.js');
 
 describe('join game command', function(){
 
+  var createGameEvent = {
+    event: "GameCreated",
+    user:{
+      userName:"Doddi"
+    },
+    name:"GameOfLife",
+    timeStamp:"2014-01-01T03:06:00"
+
+  };
+
+  var joinGameEvent = {
+    cmd: "JoinGame",
+    user:{
+      userName:"Gangsterinn"
+    },
+    name:"GameOfLife",
+    timeStamp:"2014-01-01T03:08:00"
+
+  };
+
   it('should emit game joined event', function(){
-    var given = [{
-      event: "GameCreated",
-      user:{
-        userName:"Doddi"
-      },
-      name:"GameOfLife",
-      timeStamp:"2014-01-01T03:06:00"
+    var given = [
+      createGameEvent
+    ];
 
-    }];
-
-    var when = {
-      cmd: "JoinGame",
-      user:{
-        userName:"Gangsterinn"
-      },
-      name:"GameOfLife",
-      timeStamp:"2014-01-01T03:08:00"
-
-    };
+    var when = joinGameEvent;
 
     var then = [{
       event: "GameJoined",

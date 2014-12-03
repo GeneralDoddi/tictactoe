@@ -5,28 +5,25 @@ var should = require('should');
 var _ = require('lodash');
 
 var tictactoe = require('./tictactoe.js');
-  /*[{
-  event:"GameCreated",
-  user:{
-    userName:"Doddi"
-  },
-  name:"GameOfLife",
-  timeStamp:"2014-01-01T03:06:00"
-}];*/
+
+
 
 describe('create game command', function(){
+
+  var createGameEvent = {
+    cmd: "CreateGame",
+    user:{
+      userName:"Doddi"
+    },
+    name:"GameOfLife",
+    timeStamp:"2014-01-01T03:06:00"
+
+  };
 
   it('should emit game created event', function(){
     var given = [];
 
-    var when = {
-      cmd: "CreateGame",
-      user:{
-        userName:"Doddi"
-      },
-      name:"GameOfLife",
-      timeStamp:"2014-01-01T03:06:00"
-    };
+    var when = createGameEvent;
 
     var then = [{
       event: "GameCreated",
