@@ -36,6 +36,15 @@ module.exports = function(history){
               timeStamp: cmd.timeStamp
             }]
 
+          },
+          "MakeMove": function(cmd){
+            return[{
+              event:"MoveMade",
+              user: cmd.user,
+              move: cmd.move,
+              name: cmd.name,
+              timeStamp: cmd.timeStamp
+            }]
           }
 
 
