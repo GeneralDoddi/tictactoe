@@ -59,62 +59,6 @@ describe('make move command', function(){
     should(JSON.stringify(actualEvent)).be.exactly(JSON.stringify(then));
   });
 
-  it('should emit reject move when not player turn', function(){
-    // BROKEN TEST
-    var given = [{
-      event: "GameCreated",
-      user:{
-        userName:"Doddi"
-      },
-      name:"GameOfLife",
-      timeStamp:"2014-01-01T03:06:00"
-
-    },
-      {
-        event: "GameJoined",
-        user:{
-          userName:"Gangsterinn"
-        },
-        name:"GameOfLife",
-        timeStamp:"2014-01-01T03:08:00"
-
-      },
-      {
-        event:"MoveMade",
-        user:{
-          userName:"Doddi"
-        },
-        move:"0",
-        name:"GameOfLife",
-        timeStamp:"2014-01-01T03:12:00"
-      }
-    ];
-
-    var when = {
-      cmd:"MakeMove",
-      user:{
-        userName:"Doddi"
-      },
-      move:"1",
-      name:"GameOfLife",
-      timeStamp:"2014-01-01T03:12:12"
-    };
-
-    var then = [{
-      event:"MoveMade",
-      user:{
-        userName:"Doddi"
-      },
-      move:"0",
-      name:"GameOfLife",
-      timeStamp:"2014-01-01T03:12:00"
-    }];
-
-    var actualEvent = playerTurnCheck(given);
-    console.log("event: ",actualEvent);
-    should(when.user.userName).be.exactly(actualEvent);
-  });
-
   it('should reject move when spot taken', function(){
     var given = [{
       event: "GameCreated",
@@ -166,6 +110,62 @@ describe('make move command', function(){
     }];
 
     var actualEvent = tictactoe(given).executeCommand(when);
+    should(JSON.stringify(actualEvent)).be.exactly(JSON.stringify(then));
+  });
+
+  it('should emit reject move when not player turn', function(){
+    // BROKEN TEST
+    var given = [{
+      event: "GameCreated",
+      user:{
+        userName:"Doddi"
+      },
+      name:"GameOfLife",
+      timeStamp:"2014-01-01T03:06:00"
+
+    },
+      {
+        event: "GameJoined",
+        user:{
+          userName:"Gangsterinn"
+        },
+        name:"GameOfLife",
+        timeStamp:"2014-01-01T03:08:00"
+
+      },
+      {
+        event:"MoveMade",
+        user:{
+          userName:"Doddi"
+        },
+        move:"0",
+        name:"GameOfLife",
+        timeStamp:"2014-01-01T03:12:00"
+      }
+    ];
+
+    var when = {
+      cmd:"MakeMove",
+      user:{
+        userName:"Doddi"
+      },
+      move:"1",
+      name:"GameOfLife",
+      timeStamp:"2014-01-01T03:12:12"
+    };
+
+    var then = [{
+      event:"NotPlayerTurn",
+      user:{
+        userName:"Doddi"
+      },
+      move:"1",
+      name:"GameOfLife",
+      timeStamp:"2014-01-01T03:12:12"
+    }];
+
+    var actualEvent = tictactoe(given).executeCommand(when);
+   // console.log("event: ",actualEvent);
     should(JSON.stringify(actualEvent)).be.exactly(JSON.stringify(then));
   });
 

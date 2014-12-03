@@ -47,6 +47,15 @@ module.exports = function(history,currentMove){
                 timeStamp: cmd.timeStamp
               }]
             }
+            if(gameState.playerTurn() === cmd.user.userName){
+              return [{
+                event:"NotPlayerTurn",
+                user: cmd.user,
+                move: cmd.move,
+                name: cmd.name,
+                timeStamp: cmd.timeStamp
+              }]
+            }
             return[{
               event:"MoveMade",
               user: cmd.user,

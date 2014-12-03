@@ -5,9 +5,9 @@ var _ = require('lodash');
 
 module.exports = function(history){
   var gameFull = false;
-  var spotTaken = false;
   var gameGrid = ['','','','','','','','',''];
-  var playerTurn = 0;
+  var turn = 0;
+  var playerTurn = '';
   _.each(history, function(event){
     if(event.event === "GameJoined"){
       gameFull = true;
@@ -16,17 +16,20 @@ module.exports = function(history){
   _.each(history, function(move){
     if(move.event === "MoveMade"){
 
-      if(playerTurn % 2 === 0){
+      if(turn % 2 === 0){
         gameGrid[move.move] = 'X';
+        playerTurn = move.user.userName;
       }
       else{
         gameGrid[move.move] = 'O';
+        playerTurn = move.user.userName;
       }
-      playerTurn++;
+      turn++;
     }
   });
 
   console.log("grid", gameGrid);
+  //console.log("playerturn", playerTurn);
 
   return{
     gameFull: function(){
@@ -37,6 +40,9 @@ module.exports = function(history){
         return false;
       }
       return true;
+    },
+    playerTurn: function(){
+      return playerTurn;
     }
   }
 };
