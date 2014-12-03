@@ -7,24 +7,23 @@ module.exports = function(history){
   var gameFull = false;
   var gameGrid = ['','','','','','','','',''];
   var turn = 0;
-  var playerTurn = '';
+  var notPlayerTurn = '';
+  //var notFirstTurn = '';
   _.each(history, function(event){
     if(event.event === "GameJoined"){
       gameFull = true;
+      notPlayerTurn = event.user.userName;
     }
-  });
-  _.each(history, function(move){
-    if(move.event === "MoveMade"){
+    if(event.event === "MoveMade"){
 
       if(turn % 2 === 0){
-        gameGrid[move.move] = 'X';
-        playerTurn = move.user.userName;
+        gameGrid[event.move] = 'X';
       }
       else{
-        gameGrid[move.move] = 'O';
-        playerTurn = move.user.userName;
+        gameGrid[event.move] = 'O';
       }
       turn++;
+      notPlayerTurn = event.user.userName;
     }
   });
 
@@ -41,8 +40,8 @@ module.exports = function(history){
       }
       return true;
     },
-    playerTurn: function(){
-      return playerTurn;
+    notPlayerTurn: function(){
+      return notPlayerTurn;
     }
   }
 };

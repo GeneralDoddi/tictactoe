@@ -38,6 +38,15 @@ module.exports = function(history,currentMove){
 
           },
           "MakeMove": function(cmd){
+            if(gameState.notPlayerTurn() === cmd.user.userName){
+              return [{
+                event:"NotPlayerTurn",
+                user: cmd.user,
+                move: cmd.move,
+                name: cmd.name,
+                timeStamp: cmd.timeStamp
+              }]
+            }
             if(gameState.spotTaken(cmd.move)){
               return [{
                 event:"IllegalMove",
@@ -47,15 +56,7 @@ module.exports = function(history,currentMove){
                 timeStamp: cmd.timeStamp
               }]
             }
-            if(gameState.playerTurn() === cmd.user.userName){
-              return [{
-                event:"NotPlayerTurn",
-                user: cmd.user,
-                move: cmd.move,
-                name: cmd.name,
-                timeStamp: cmd.timeStamp
-              }]
-            }
+
             return[{
               event:"MoveMade",
               user: cmd.user,
@@ -64,9 +65,6 @@ module.exports = function(history,currentMove){
               timeStamp: cmd.timeStamp
             }]
           }
-
-
-
       }
       return cmdHandler[cmd.cmd](cmd);
     }
