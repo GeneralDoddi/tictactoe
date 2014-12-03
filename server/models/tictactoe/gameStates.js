@@ -2,12 +2,16 @@
  * Created by Þórður on 3.12.2014.
  */
 var _ = require('lodash');
+var winCondition = require('./ticTacToeWinConditions.js');
+//var checkWinConditions = winCondition(gameGrid);
 
 module.exports = function(history){
   var gameFull = false;
   var gameGrid = ['','','','','','','','',''];
   var turn = 0;
   var notPlayerTurn = '';
+  var symbol;
+
   //var notFirstTurn = '';
   _.each(history, function(event){
     if(event.event === "GameJoined"){
@@ -16,12 +20,16 @@ module.exports = function(history){
     }
     if(event.event === "MoveMade"){
 
+      var checkWinConditions = winCondition(gameGrid,symbol);
       if(turn % 2 === 0){
-        gameGrid[event.move] = 'X';
+        symbol = 'X';
       }
-      else{
-        gameGrid[event.move] = 'O';
+      else {
+        symbol = 'O';
       }
+      gameGrid[event.move] = symbol;
+
+
       turn++;
       notPlayerTurn = event.user.userName;
     }

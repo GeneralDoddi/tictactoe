@@ -8,11 +8,6 @@ describe('make move command', function(){
 
   var tictactoe = require('./tictactoe.js');
 
-  var playerTurnCheck = function(history){
-
-    return history[history.length-1].user.userName;
-  };
-
   it('should emit move made event', function(){
 
     var given = [{
