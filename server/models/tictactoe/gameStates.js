@@ -10,6 +10,7 @@ module.exports = function(history){
   var gameGrid = ['','','','','','','','',''];
   var turn = 0;
   var notPlayerTurn = '';
+  var win;
   var symbol;
 
   //var notFirstTurn = '';
@@ -20,14 +21,14 @@ module.exports = function(history){
     }
     if(event.event === "MoveMade"){
 
-      var checkWinConditions = winCondition(gameGrid,symbol);
+
       if(turn % 2 === 0){
-        symbol = 'X';
+        symbol = event.move.symbol;
       }
       else {
-        symbol = 'O';
+        symbol = event.move.symbol;
       }
-      gameGrid[event.move] = symbol;
+      gameGrid[event.move.coords] = symbol;
 
 
       turn++;
@@ -35,21 +36,41 @@ module.exports = function(history){
     }
   });
 
-  console.log("grid", gameGrid);
+
+
+  function makeMove(event){
+    gameGrid[event.move.coords] = event.move.symbol;
+    console.log("grid", gameGrid);
+    var checkWinConditions = winCondition(gameGrid,event.move.symbol);
+    win = checkWinConditions.isWin();
+  }
+
+  function spotTakenCheck(event){
+    return !(gameGrid[event.move.coords] === '');
+  }
+
+  function notPlayerTurnCheck(event){
+    return event.user.userName === notPlayerTurn;
+  }
+
+
   //console.log("playerturn", playerTurn);
 
   return{
     gameFull: function(){
       return gameFull;
     },
-    spotTaken: function(currentMove){
-      if(gameGrid[currentMove] === ''){
-        return false;
-      }
-      return true;
+    spotTaken: function(event){
+      return spotTakenCheck(event);
     },
-    notPlayerTurn: function(){
-      return notPlayerTurn;
+    notPlayerTurn: function(event){
+      return notPlayerTurnCheck(event);
+    },
+    isWin: function(){
+      return win;
+    },
+    makeMove: function(event){
+      makeMove(event);
     }
   }
 };

@@ -1,11 +1,11 @@
 /**
  * Created by thordurth on 2.12.2014.
  */
-module.exports = function(history,currentMove){
+module.exports = function(history){
 
   var states = require('./gameStates');
 
-  var gameState = states(history, currentMove)
+  var gameState = states(history);
 
   return {
     executeCommand: function(cmd){
@@ -38,29 +38,51 @@ module.exports = function(history,currentMove){
 
           },
           "MakeMove": function(cmd){
-            if(gameState.notPlayerTurn() === cmd.user.userName){
+            if(gameState.notPlayerTurn(cmd)){
               return [{
                 event:"NotPlayerTurn",
                 user: cmd.user,
-                move: cmd.move,
+                move: {
+                  coords: cmd.move.coords,
+                  symbol: cmd.move.symbol
+                },
                 name: cmd.name,
                 timeStamp: cmd.timeStamp
               }]
             }
-            if(gameState.spotTaken(cmd.move)){
+            if(gameState.spotTaken(cmd)){
               return [{
                 event:"IllegalMove",
                 user: cmd.user,
-                move: cmd.move,
+                move: {
+                  coords: cmd.move.coords,
+                  symbol: cmd.move.symbol
+                },
                 name: cmd.name,
                 timeStamp: cmd.timeStamp
               }]
             }
+            gameState.makeMove(cmd);
 
+            if(gameState.isWin()){
+              return [{
+                event:"PlayerWins",
+                user: cmd.user,
+                move: {
+                  coords: cmd.move.coords,
+                  symbol: cmd.move.symbol
+                },
+                name: cmd.name,
+                timeStamp: cmd.timeStamp
+              }]
+            }
             return[{
               event:"MoveMade",
               user: cmd.user,
-              move: cmd.move,
+              move: {
+                coords: cmd.move.coords,
+                symbol: cmd.move.symbol
+              },
               name: cmd.name,
               timeStamp: cmd.timeStamp
             }]

@@ -34,7 +34,10 @@ describe('make move command', function(){
       user:{
         userName:"Doddi"
       },
-      move:"0",
+      move:{
+        coords:"0",
+        symbol:"X"
+      },
       name:"GameOfLife",
       timeStamp:"2014-01-01T03:12:00"
     };
@@ -44,7 +47,10 @@ describe('make move command', function(){
       user:{
         userName:"Doddi"
       },
-      move:"0",
+      move:{
+        coords:"0",
+        symbol:"X"
+      },
       name:"GameOfLife",
       timeStamp:"2014-01-01T03:12:00"
     }];
@@ -78,7 +84,10 @@ describe('make move command', function(){
         user:{
           userName:"Doddi"
         },
-        move:"0",
+        move:{
+          coords:"2",
+          symbol:"X"
+        },
         name:"GameOfLife",
         timeStamp:"2014-01-01T03:12:00"
       }
@@ -89,7 +98,10 @@ describe('make move command', function(){
       user:{
         userName:"Gangsterinn"
       },
-      move:"0",
+      move:{
+        coords:"2",
+        symbol:"X"
+      },
       name:"GameOfLife",
       timeStamp:"2014-01-01T03:12:12"
     };
@@ -99,7 +111,10 @@ describe('make move command', function(){
       user:{
         userName:"Gangsterinn"
       },
-      move:"0",
+      move:{
+        coords:"2",
+        symbol:"X"
+      },
       name:"GameOfLife",
       timeStamp:"2014-01-01T03:12:12"
     }];
@@ -133,7 +148,10 @@ describe('make move command', function(){
         user:{
           userName:"Doddi"
         },
-        move:"0",
+        move:{
+          coords:"0",
+          symbol:"X"
+        },
         name:"GameOfLife",
         timeStamp:"2014-01-01T03:12:00"
       }
@@ -144,7 +162,10 @@ describe('make move command', function(){
       user:{
         userName:"Doddi"
       },
-      move:"1",
+      move:{
+        coords:"1",
+        symbol:"X"
+      },
       name:"GameOfLife",
       timeStamp:"2014-01-01T03:12:12"
     };
@@ -154,7 +175,10 @@ describe('make move command', function(){
       user:{
         userName:"Doddi"
       },
-      move:"1",
+      move:{
+        coords:"1",
+        symbol:"X"
+      },
       name:"GameOfLife",
       timeStamp:"2014-01-01T03:12:12"
     }];
