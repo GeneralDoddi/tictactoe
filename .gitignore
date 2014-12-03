@@ -7,4 +7,4 @@ dist
 old_modules
 /node_modules
 npm-debug.log
-test-results.xml
+*.xml
