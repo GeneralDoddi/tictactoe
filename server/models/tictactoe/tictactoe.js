@@ -1,11 +1,11 @@
 /**
  * Created by thordurth on 2.12.2014.
  */
-module.exports = function(history){
+module.exports = function(history,currentMove){
 
   var states = require('./gameStates');
 
-  var gameState = states(history)
+  var gameState = states(history, currentMove)
 
   return {
     executeCommand: function(cmd){
@@ -38,6 +38,15 @@ module.exports = function(history){
 
           },
           "MakeMove": function(cmd){
+            if(gameState.spotTaken(cmd.move)){
+              return [{
+                event:"IllegalMove",
+                user: cmd.user,
+                move: cmd.move,
+                name: cmd.name,
+                timeStamp: cmd.timeStamp
+              }]
+            }
             return[{
               event:"MoveMade",
               user: cmd.user,
