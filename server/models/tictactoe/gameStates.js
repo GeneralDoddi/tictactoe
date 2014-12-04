@@ -45,7 +45,7 @@ module.exports = function(history){
   }
 
   function spotTakenCheck(event){
-    return !(gameGrid[event.move.coords] === '');
+    return gameGrid[event.move.coords] !== '';
   }
 
   function notPlayerTurnCheck(event){
@@ -55,8 +55,8 @@ module.exports = function(history){
   function leaveGameWinnerName(leaverName){
 
     _.each(history, function(event){
-      if(event.user.userName != leaverName){
-        remainingPlayer = event.user;;
+      if(event.user.userName !== leaverName){
+        remainingPlayer = event.user;
       }
     });
   }
@@ -78,7 +78,7 @@ module.exports = function(history){
       makeMove(event);
     },
     isDraw: function(){
-      if(turn == 8){
+      if(turn === 8){
         return true;
       }
       return false;
