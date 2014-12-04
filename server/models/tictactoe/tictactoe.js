@@ -98,9 +98,24 @@ module.exports = function(history){
               name: cmd.name,
               timeStamp: cmd.timeStamp
             }]
+          },
+          "LeaveGame":function(cmd){
+            return[{
+                event:"LeftGame",
+                user: cmd.user,
+                name: cmd.name,
+                timeStamp: cmd.timeStamp
+              },
+              {
+                event:"PlayerWins",
+                user: gameState.leaveGameWinner(cmd.user.userName),
+                name: cmd.name,
+                timeStamp: cmd.timeStamp
+              }];
+
           }
-      }
+      };
       return cmdHandler[cmd.cmd](cmd);
     }
   }
-}
+};

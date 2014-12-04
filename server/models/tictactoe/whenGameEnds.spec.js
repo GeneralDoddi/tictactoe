@@ -306,37 +306,6 @@ describe('game end condition', function(){
     should(JSON.stringify(actualEvent)).be.exactly(JSON.stringify(then));
   });
 
-  it('should emit game won when [2,4,6] arrays are filled with X', function(){
-
-    var given = [
-      createGameEvent,
-      joinGameEvent,
-      moveMadeEvent("Doddi","2","X"),
-      moveMadeEvent("Gangsterinn","1","O"),
-      moveMadeEvent("Doddi","4","X"),
-      moveMadeEvent("Gangsterinn","3","O")
-
-    ];
-
-    var when = makeMoveEvent("Doddi","6","X");
-
-    var then = [{
-      event:"PlayerWins",
-      user:{
-        userName:"Doddi"
-      },
-      move:{
-        coords:"6",
-        symbol:"X"
-      },
-      name:"GameOfLife",
-      timeStamp:"2014-01-01T03:12:00"
-    }];
-
-    var actualEvent = tictactoe(given).executeCommand(when);
-    should(JSON.stringify(actualEvent)).be.exactly(JSON.stringify(then));
-  });
-
   it('should emit game draw when game grid is full and no winner', function(){
 
     var given = [
@@ -362,6 +331,45 @@ describe('game end condition', function(){
       move:{
         coords:"8",
         symbol:"X"
+      },
+      name:"GameOfLife",
+      timeStamp:"2014-01-01T03:12:00"
+    }];
+
+    var actualEvent = tictactoe(given).executeCommand(when);
+    should(JSON.stringify(actualEvent)).be.exactly(JSON.stringify(then));
+  });
+
+  it('should emit Player wins on the remaining player after opponent leaves', function(){
+
+    var given = [
+      createGameEvent,
+      joinGameEvent,
+      moveMadeEvent("Doddi","0","X"),
+      moveMadeEvent("Gangsterinn","2","O"),
+    ];
+
+    var when = {
+      cmd:"LeaveGame",
+      user:{
+        userName:"Gangsterinn"
+      },
+      name:"GameOfLife",
+      timeStamp:"2014-01-01T03:12:00"
+    };
+
+    var then = [{
+      event:"LeftGame",
+      user:{
+        userName:"Gangsterinn"
+      },
+      name:"GameOfLife",
+      timeStamp:"2014-01-01T03:12:00"
+      },
+      {
+      event:"PlayerWins",
+      user:{
+        userName:"Doddi"
       },
       name:"GameOfLife",
       timeStamp:"2014-01-01T03:12:00"

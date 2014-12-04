@@ -8,10 +8,11 @@ var winCondition = require('./ticTacToeWinConditions.js');
 module.exports = function(history){
   var gameFull = false;
   var gameGrid = ['','','','','','','','',''];
-  var turn = 1;
+  var turn = 0;
   var notPlayerTurn = '';
   var win;
   var symbol;
+  var remainingPlayer;
 
   //var notFirstTurn = '';
   _.each(history, function(event){
@@ -54,6 +55,15 @@ module.exports = function(history){
   }
   //console.log("playerturn", playerTurn);
 
+  function leaveGameWinnerName(leaverName){
+
+    _.each(history, function(event){
+      if(event.user.userName != leaverName){
+        remainingPlayer = event.user;;
+      }
+    });
+  }
+
   return{
     gameFull: function(){
       return gameFull;
@@ -71,10 +81,14 @@ module.exports = function(history){
       makeMove(event);
     },
     isDraw: function(){
-      if(turn == 9){
+      if(turn == 8){
         return true;
       }
       return false;
+    },
+    leaveGameWinner: function(leaverName){
+      leaveGameWinnerName(leaverName);
+      return remainingPlayer;
     }
 
   }
