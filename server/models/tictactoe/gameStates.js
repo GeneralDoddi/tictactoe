@@ -3,7 +3,6 @@
  */
 var _ = require('lodash');
 var winCondition = require('./ticTacToeWinConditions.js');
-//var checkWinConditions = winCondition(gameGrid);
 
 module.exports = function(history){
   var gameFull = false;
@@ -41,7 +40,6 @@ module.exports = function(history){
 
   function makeMove(event){
     gameGrid[event.move.coords] = event.move.symbol;
-    console.log("grid", gameGrid);
     var checkWinConditions = winCondition(gameGrid,event.move.symbol);
     win = checkWinConditions.isWin();
   }
@@ -53,7 +51,6 @@ module.exports = function(history){
   function notPlayerTurnCheck(event){
     return event.user.userName === notPlayerTurn;
   }
-  //console.log("playerturn", playerTurn);
 
   function leaveGameWinnerName(leaverName){
 
