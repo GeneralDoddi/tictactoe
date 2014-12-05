@@ -9,6 +9,7 @@ describe('game end condition', function(){
   var tictactoe = require('./tictactoe.js');
 
   var createGameEvent = {
+    id:"1337",
     event: "GameCreated",
     user:{
       userName:"Doddi"
@@ -19,6 +20,7 @@ describe('game end condition', function(){
   };
 
   var joinGameEvent = {
+    id:"1337",
     event: "GameJoined",
     user:{
       userName:"Gangsterinn"
@@ -30,6 +32,7 @@ describe('game end condition', function(){
 
   var makeMoveEvent = function(name, coords, symbol){
     return{
+      id:"1337",
       cmd:"MakeMove",
       user:{
         userName: name
@@ -45,6 +48,7 @@ describe('game end condition', function(){
 
   var moveMadeEvent = function(name, coords, symbol){
     return{
+      id:"1337",
       event:"MoveMade",
       user:{
         userName: name
@@ -73,6 +77,7 @@ describe('game end condition', function(){
     var when = makeMoveEvent("Doddi","2","X");
 
     var then = [{
+      id:"1337",
       event:"PlayerWins",
       user:{
         userName:"Doddi"
@@ -104,6 +109,7 @@ describe('game end condition', function(){
     var when = makeMoveEvent("Doddi","5","X");
 
     var then = [{
+      id:"1337",
       event:"PlayerWins",
       user:{
         userName:"Doddi"
@@ -135,6 +141,7 @@ describe('game end condition', function(){
     var when = makeMoveEvent("Doddi","8","X");
 
     var then = [{
+      id:"1337",
       event:"PlayerWins",
       user:{
         userName:"Doddi"
@@ -166,6 +173,7 @@ describe('game end condition', function(){
     var when = makeMoveEvent("Doddi","6","X");
 
     var then = [{
+      id:"1337",
       event:"PlayerWins",
       user:{
         userName:"Doddi"
@@ -197,6 +205,7 @@ describe('game end condition', function(){
     var when = makeMoveEvent("Doddi","7","X");
 
     var then = [{
+      id:"1337",
       event:"PlayerWins",
       user:{
         userName:"Doddi"
@@ -228,6 +237,7 @@ describe('game end condition', function(){
     var when = makeMoveEvent("Doddi","8","X");
 
     var then = [{
+      id:"1337",
       event:"PlayerWins",
       user:{
         userName:"Doddi"
@@ -259,6 +269,7 @@ describe('game end condition', function(){
     var when = makeMoveEvent("Doddi","8","X");
 
     var then = [{
+      id:"1337",
       event:"PlayerWins",
       user:{
         userName:"Doddi"
@@ -290,6 +301,7 @@ describe('game end condition', function(){
     var when = makeMoveEvent("Doddi","6","X");
 
     var then = [{
+      id:"1337",
       event:"PlayerWins",
       user:{
         userName:"Doddi"
@@ -324,6 +336,7 @@ describe('game end condition', function(){
     var when = makeMoveEvent("Doddi","8","X");
 
     var then = [{
+      id:"1337",
       event:"Draw",
       user:{
         userName:"Doddi"
@@ -350,6 +363,7 @@ describe('game end condition', function(){
     ];
 
     var when = {
+      id:"1337",
       cmd:"LeaveGame",
       user:{
         userName:"Gangsterinn"
@@ -359,6 +373,7 @@ describe('game end condition', function(){
     };
 
     var then = [{
+      id:"1337",
       event:"LeftGame",
       user:{
         userName:"Gangsterinn"

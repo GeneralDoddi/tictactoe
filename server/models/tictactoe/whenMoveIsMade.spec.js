@@ -9,6 +9,7 @@ describe('make move command', function(){
   var tictactoe = require('./tictactoe.js');
 
   var createGameEvent = {
+    id:"1337",
     event: "GameCreated",
     user:{
       userName:"Doddi"
@@ -19,6 +20,7 @@ describe('make move command', function(){
   };
 
   var joinGameEvent = {
+    id:"1337",
     event: "GameJoined",
     user:{
       userName:"Gangsterinn"
@@ -30,6 +32,7 @@ describe('make move command', function(){
 
   var makeMoveEvent = function(name, coords, symbol){
     return{
+      id:"1337",
       cmd:"MakeMove",
       user:{
         userName: name
@@ -45,6 +48,7 @@ describe('make move command', function(){
 
   var moveMadeEvent = function(name, coords, symbol){
     return{
+      id:"1337",
       event:"MoveMade",
       user:{
         userName: name
@@ -68,6 +72,7 @@ describe('make move command', function(){
     var when = makeMoveEvent("Doddi","0","X");
 
     var then = [{
+      id:"1337",
       event:"MoveMade",
       user:{
         userName:"Doddi"
@@ -95,6 +100,7 @@ describe('make move command', function(){
     var when = makeMoveEvent("Gangsterinn","2","O");
 
     var then = [{
+      id:"1337",
       event:"IllegalMove",
       user:{
         userName:"Gangsterinn"
@@ -112,7 +118,7 @@ describe('make move command', function(){
   });
 
   it('should emit reject move when not player turn', function(){
-    // BROKEN TEST
+
     var given = [
       createGameEvent,
       joinGameEvent,
@@ -122,6 +128,7 @@ describe('make move command', function(){
     var when = makeMoveEvent("Doddi","1","X");
 
     var then = [{
+      id:"1337",
       event:"NotPlayerTurn",
       user:{
         userName:"Doddi"

@@ -11,6 +11,7 @@ var tictactoe = require('./tictactoe.js');
 describe('create game command', function(){
 
   var createGameEvent = {
+    id:"1337",
     cmd: "CreateGame",
     user:{
       userName:"Doddi"
@@ -26,6 +27,7 @@ describe('create game command', function(){
     var when = createGameEvent;
 
     var then = [{
+      id:"1337",
       event: "GameCreated",
       user:{
         userName:"Doddi"

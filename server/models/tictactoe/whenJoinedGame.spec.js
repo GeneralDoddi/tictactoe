@@ -9,6 +9,7 @@ var tictactoe = require('./tictactoe.js');
 describe('join game command', function(){
 
   var createGameEvent = {
+    id:"1337",
     event: "GameCreated",
     user:{
       userName:"Doddi"
@@ -19,6 +20,7 @@ describe('join game command', function(){
   };
 
   var joinGameEvent = {
+    id:"1337",
     cmd: "JoinGame",
     user:{
       userName:"Gangsterinn"
@@ -36,6 +38,7 @@ describe('join game command', function(){
     var when = joinGameEvent;
 
     var then = [{
+      id:"1337",
       event: "GameJoined",
       user:{
         userName:"Gangsterinn"
@@ -54,6 +57,7 @@ describe('join game command', function(){
   it('should emit game full when attempting to join a full game', function(){
 
     var given = [{
+      id:"1337",
       event: "GameCreated",
       user:{
         userName:"Doddi"
@@ -63,6 +67,7 @@ describe('join game command', function(){
 
     },
       {
+        id:"1337",
         event: "GameJoined",
         user:{
           userName:"Gangsterinn"
@@ -73,6 +78,7 @@ describe('join game command', function(){
       }];
 
     var when = {
+      id:"1337",
       cmd: "JoinGame",
       user:{
         userName:"lamedude"
@@ -83,6 +89,7 @@ describe('join game command', function(){
     };
 
     var then = [{
+      id:"1337",
       event: "FullGameJoinAttempted",
       user:{
         userName:"lamedude"
