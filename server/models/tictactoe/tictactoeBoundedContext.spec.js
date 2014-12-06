@@ -37,7 +37,7 @@ describe('tictactoe game context stubs', function(){
 
     var emptyCommand = {
       id: "1337"
-    }
+    };
 
     var events = boundedContext.handleCommand(emptyCommand);
 
