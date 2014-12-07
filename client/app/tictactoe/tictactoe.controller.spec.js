@@ -31,7 +31,7 @@ describe('Controller: TictactoeController', function(){
   });
 
   it('should post create game event when username and name are filled out', function(){
-    httpBackend.post('/api/createGame', {
+    httpBackend.expectPOST('/api/createGame/', {
         id:"1337",
         cmd: "CreateGame",
         user:{
@@ -39,9 +39,7 @@ describe('Controller: TictactoeController', function(){
         },
         name:"GameOfLife",
         timeStamp:"2014-01-01T03:06:00"
-
-      }
-    ).respond({
+      }).respond({
       response: [
         {
           id:"1337",
@@ -56,6 +54,7 @@ describe('Controller: TictactoeController', function(){
     });
 
     scope.name = "GameOfLife";
+
 
     scope.userName = "Doddi";
 
