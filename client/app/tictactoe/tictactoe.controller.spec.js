@@ -25,10 +25,12 @@ describe('Controller: TictactoeController', function(){
     });
   }));
 
+
   afterEach(function () {
     httpBackend.verifyNoOutstandingExpectation();
     httpBackend.verifyNoOutstandingRequest();
   });
+
 
   it('should post create game event when username and name are filled out', function(){
     httpBackend.expectPOST('/api/createGame/', {
