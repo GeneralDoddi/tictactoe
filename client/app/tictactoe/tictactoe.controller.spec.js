@@ -6,7 +6,7 @@
  * 1. testa create fallid
  * 2. testa
  */
-
+'use strict';
 describe('Controller: TictactoeController', function(){
 
   // load the controller's module
