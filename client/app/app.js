@@ -8,7 +8,16 @@ angular.module('tictactoeApp', [
   'ui.bootstrap'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-    $urlRouterProvider.otherwise('/');
+
+    $urlRouterProvider
+      //.when('/playgame', '/playgame')
+      .otherwise('/');
+
+    $stateProvider.state('playgame' ,{
+      url: "/playgame",
+      templateUrl: 'app/tictactoe/tictactoeGame.html'
+    });
+
 
     $locationProvider.html5Mode(true);
   });

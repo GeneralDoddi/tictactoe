@@ -21,6 +21,7 @@ exports.executeCommand = function(req, res) {
     var context = boundedContext(store, tictactoeHandler);
 
     var result = context.handleCommand(req.body);
+    console.log(req.body);
     res.json(result);
   }
   catch(e){

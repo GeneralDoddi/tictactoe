@@ -4,10 +4,15 @@
 'use strict';
 
 angular.module('tictactoeApp')
-  .controller('TictactoeController', function ($scope, $http) {
+  .controller('TictactoeController', function ($scope, $http, $location, TicTacToeService) {
+
+    $scope.playGame = false;
+    console.log($scope.playGame);
 
     $scope.processEvents = function(events){
       $scope.processedEvents = events;
+      $location.path('/playgame');
+
     };
 
     $scope.createGame = function(){
@@ -23,7 +28,9 @@ angular.module('tictactoeApp')
       });
 
       postPromise.then(function(data){
-        $scope.processEvents(data.data.response);
+        console.log(data.data);
+        $scope.processEvents(data.data);
+        TicTacToeService.setGameOwner($scope.userName);
       });
     };
 
