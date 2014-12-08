@@ -6,7 +6,7 @@ angular.module('tictactoeApp')
 
       $scope.clickbox = function(event){
         console.log(event);
-       draw(event.target.id, 'X');
+
        // draw((event.target.id),'O');
         console.log(TicTacToeService.getGameOwner());
 
@@ -18,7 +18,7 @@ angular.module('tictactoeApp')
           },
           move:{
             coords: event.target.id,
-            symbol: 'X'
+            symbol: TicTacToeService.getPlayerSymbol()
           },
           name:$scope.name,
           timeStamp:'2014-01-01T03:06:00'
@@ -26,6 +26,9 @@ angular.module('tictactoeApp')
         });
 
         postPromise.then(function(data){
+          if(data.data.event === 'MoveMade'){
+            draw(event.target.id, 'X');
+          }
           console.log(data.data);
           //$scope.processEvents(data.data);
         });

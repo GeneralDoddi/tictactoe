@@ -13,7 +13,7 @@ module.exports = function(history){
       var cmdHandler = {
           "CreateGame": function(cmd){
             return [{
-              id:"1337",
+              id: cmd.id,
               event: "GameCreated",
               user: cmd.user,
               name: cmd.name,
@@ -23,7 +23,7 @@ module.exports = function(history){
           "JoinGame": function(cmd){
             if(gameState.gameFull()){
               return [{
-                id:"1337",
+                id: cmd.id,
                 event: "FullGameJoinAttempted",
                 user: cmd.user,
                 name: cmd.name,
@@ -32,7 +32,7 @@ module.exports = function(history){
             }
             //gameFull = true;
             return [{
-              id:"1337",
+              id:  cmd.id,
               event:"GameJoined",
               user: cmd.user,
               name: cmd.name,
@@ -43,7 +43,7 @@ module.exports = function(history){
           "MakeMove": function(cmd){
             if(gameState.notPlayerTurn(cmd)){
               return [{
-                id:"1337",
+                id: cmd.id,
                 event:"NotPlayerTurn",
                 user: cmd.user,
                 move: {
@@ -56,7 +56,7 @@ module.exports = function(history){
             }
             if(gameState.spotTaken(cmd)){
               return [{
-                id:"1337",
+                id: cmd.id,
                 event:"IllegalMove",
                 user: cmd.user,
                 move: {
@@ -71,7 +71,7 @@ module.exports = function(history){
 
             if(gameState.isWin()){
               return [{
-                id:"1337",
+                id: cmd.id,
                 event:"PlayerWins",
                 user: cmd.user,
                 move: {
@@ -84,7 +84,7 @@ module.exports = function(history){
             }
             if(gameState.isDraw()){
               return [{
-                id:"1337",
+                id: cmd.id,
                 event:"Draw",
                 user: cmd.user,
                 move: {
@@ -96,7 +96,7 @@ module.exports = function(history){
               }]
             }
             return[{
-              id:"1337",
+              id: cmd.id,
               event:"MoveMade",
               user: cmd.user,
               move: {
@@ -109,7 +109,7 @@ module.exports = function(history){
           },
           "LeaveGame":function(cmd){
             return[{
-                id:"1337",
+                id: cmd.id,
                 event:"LeftGame",
                 user: cmd.user,
                 name: cmd.name,

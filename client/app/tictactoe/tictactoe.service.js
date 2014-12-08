@@ -5,6 +5,7 @@ angular.module('tictactoeApp')
   .factory('TicTacToeService', function () {
 
     var gameOwner;
+    var playerSymbol;
 
 
     return {
@@ -14,6 +15,17 @@ angular.module('tictactoeApp')
       },
       getGameOwner: function(){
         return gameOwner;
+      },
+      setPlayerSymbol: function(eventString){
+        if(eventString === 'GameCreated'){
+          playerSymbol = 'X';
+        }
+        else if(eventString === 'GameJoined'){
+          playerSymbol = 'O';
+        }
+      },
+      getPlayerSymbol: function(){
+        return playerSymbol;
       }
 
 

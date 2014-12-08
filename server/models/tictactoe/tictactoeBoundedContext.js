@@ -12,4 +12,4 @@ module.exports = function(eventStore, commandHandler){
       return events;
     }
   }
-}
+};
