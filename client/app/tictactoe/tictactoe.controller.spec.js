@@ -12,13 +12,27 @@ describe('Controller: TictactoeController', function(){
   // load the controller's module
   beforeEach(module('tictactoeApp'));
 
-  var TictactoeControllerCtrl, scope, httpBackend, http;
+  var TictactoeControllerCtrl, scope, httpBackend, http, ticTacToeService;
+
+  module(function($provide){
+    $provide.factory('TicTacToeService',function (){
+      return {
+        getNewDate: function(){
+          return "2014-01-01T03:06:00"
+        }
+      }
+    });
+  });
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($injector, $controller, $rootScope, $http) {
+  beforeEach(inject(function ($injector, $controller, $rootScope, $http, TicTacToeService) {
     http = $http;
     httpBackend = $injector.get('$httpBackend');
+    ticTacToeService = TicTacToeService;
 
+    TicTacToeService.getNewDate = function(){
+      return "2014-01-01T03:06:00"
+    };
     scope = $rootScope.$new();
     TictactoeControllerCtrl = $controller('TictactoeController', {
       $scope: scope
@@ -41,8 +55,8 @@ describe('Controller: TictactoeController', function(){
         },
         name:"GameOfLife",
         timeStamp:"2014-01-01T03:06:00"
-      }).respond({
-      response: [
+      }).respond(
+      [
         {
           id:"1337",
           event: "GameCreated",
@@ -53,15 +67,16 @@ describe('Controller: TictactoeController', function(){
           timeStamp:"2014-01-01T03:06:00"
         }
       ]
-    });
+    );
 
     scope.name = "GameOfLife";
-
-
+    scope.id = "1337";
     scope.userName = "Doddi";
 
     scope.createGame();
 
+    httpBackend.expectGET('app/main/main.html').respond('');
+    httpBackend.expectGET('app/tictactoe/tictactoeGame.html').respond('');
     httpBackend.flush();
     expect(scope.processedEvents.length).toBe(1);
 

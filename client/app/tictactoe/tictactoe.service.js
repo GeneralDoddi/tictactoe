@@ -7,6 +7,7 @@ angular.module('tictactoeApp')
 
     var gameOwner;
     var playerSymbol;
+    var gameUUID;
 
 
     return {
@@ -27,6 +28,15 @@ angular.module('tictactoeApp')
       },
       getPlayerSymbol: function(){
         return playerSymbol;
+      },
+      setUUID: function(uuid){
+        gameUUID = uuid;
+      },
+      getUUID: function(){
+        return gameUUID;
+      },
+      getNewDate: function(){
+        return new Date();
       }
 
 

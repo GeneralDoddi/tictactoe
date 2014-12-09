@@ -8,30 +8,33 @@ angular.module('tictactoeApp')
 
     $scope.playGame = false;
 
-    console.log($scope.playGame);
+    /* jshint ignore:start */
+    $scope.id = generateUUID();
+    /* jshint ignore:end */
+
+    //console.log($scope.playGame);
 
     $scope.processEvents = function(events){
       $scope.processedEvents = events;
-      if(data.data[0].event === 'GameCreated'){
+      if(events[0].event === 'GameCreated'){
         TicTacToeService.setGameOwner($scope.userName);
-        TicTacToeService.setPlayerSymbol(data.data[0].event);
-        console.log(TicTacToeService.getPlayerSymbol());
+        TicTacToeService.setPlayerSymbol(events[0].event);
+        TicTacToeService.setUUID(events[0].id);
+        //console.log(TicTacToeService.getPlayerSymbol());
         $state.go('playgame/:id', {id: events[0].id});
       }
     };
 
     $scope.createGame = function(){
-      /* jshint ignore:start */
-      var id = generateUUID();
-      /* jshint ignore:end */
+
       var postPromise = $http.post('/api/createGame/',{
-        id: id,
+        id: $scope.id,
         cmd: 'CreateGame',
         user:{
           userName:$scope.userName
         },
         name:$scope.name,
-        timeStamp: new Date()
+        timeStamp: TicTacToeService.getNewDate()
 
       });
 
@@ -49,12 +52,12 @@ angular.module('tictactoeApp')
         user:{
           userName:$scope.userName
         },
-        timeStamp: new Date()
+        timeStamp: TicTacToeService.getNewDate()
 
       });
 
       postPromise.then(function(data){
-        console.log(data.data);
+        //console.log(data.data);
         $scope.processEvents(data.data);
         TicTacToeService.setGameOwner($scope.userName);
         TicTacToeService.setPlayerSymbol(data.data.event);

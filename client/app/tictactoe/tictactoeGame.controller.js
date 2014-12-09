@@ -6,6 +6,17 @@
 angular.module('tictactoeApp')
   .controller('TictactoeGameController', function ($scope, $http, TicTacToeService) {
 
+
+      $scope.processEvents = function(events){
+        $scope.processedEvents = events;
+        if(events[0].event === 'MoveMade'){
+          draw(event.target.id, TicTacToeService.getPlayerSymbol());
+        }
+        else{
+          alert(events[0].event);
+        }
+      };
+
       $scope.clickbox = function(event){
         console.log(event);
 
@@ -13,7 +24,7 @@ angular.module('tictactoeApp')
         console.log(TicTacToeService.getGameOwner());
 
         var postPromise = $http.post('/api/makeMove/',{
-          id:'1337',
+          id: TicTacToeService.getUUID(),
           cmd: 'MakeMove',
           user:{
             userName:TicTacToeService.getGameOwner()
@@ -23,14 +34,14 @@ angular.module('tictactoeApp')
             symbol: TicTacToeService.getPlayerSymbol()
           },
           name:$scope.name,
-          timeStamp:'2014-01-01T03:06:00'
+          timeStamp: new Date()
 
         });
 
         postPromise.then(function(data){
-          if(data.data.event === 'MoveMade'){
-            draw(event.target.id, 'X');
-          }
+
+          $scope.processEvents(data.data);
+
           console.log(data.data);
           //$scope.processEvents(data.data);
         });
@@ -58,5 +69,7 @@ angular.module('tictactoeApp')
       }
 
     }
+
+    setInterval()
 
   });
