@@ -18,6 +18,7 @@ module.exports = function(history){
     if(event.event === "GameJoined"){
       gameFull = true;
       notPlayerTurn = event.user.userName;
+      
     }
     if(event.event === "MoveMade"){
 

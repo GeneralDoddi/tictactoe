@@ -6,32 +6,39 @@
 angular.module('tictactoeApp')
   .controller('TictactoeGameController', function ($stateParams, $scope, $http, TicTacToeService) {
 
-      //console.log($stateParams.id);
+      $scope.gameGrid = ['','','','','','','','',''];
+
       TicTacToeService.setUUID($stateParams.id);
       $scope.gameJoined = TicTacToeService.getGameJoined();
-      console.log($scope.gameJoined)
+
 
       $scope.processEvents = function(events){
         $scope.processedEvents = events;
         if(events[0].event === 'GameJoined'){
-          console.log("GAME JOINED");
-          TicTacToeService.setSecondPlayer($scope.userName);
+          TicTacToeService.setPlayer($scope.userName);
           TicTacToeService.setPlayerSymbol(events[0].event);
-          console.log(TicTacToeService.getPlayerSymbol());
           TicTacToeService.setGameName($scope.name);
           TicTacToeService.setGameJoined(true);
           $scope.gameJoined = TicTacToeService.getGameJoined();
         }
         if(events[0].event === 'MoveMade'){
+          console.log(events);
+          //$scope.gamegrid[events[0].move.coords] = TicTacToeService.getPlayerSymbol();
           draw(events[0].move.coords, TicTacToeService.getPlayerSymbol());
         }
+        if(events[0].event === 'PlayerWins'){
+          console.log('you win');
+          draw(events[0].move.coords, TicTacToeService.getPlayerSymbol());
+          clearInterval(intervalID);
+        }
         else{
-          //alert(events[0].event);
+          console.log(events[0].event);
         }
       };
 
       $scope.clickbox = function(event){
         console.log(event);
+        console.log(event.target.id);
 
        // draw((event.target.id),'O');
         console.log(TicTacToeService.getGameOwner());
@@ -40,7 +47,7 @@ angular.module('tictactoeApp')
           id: TicTacToeService.getUUID(),
           cmd: 'MakeMove',
           user:{
-            userName:TicTacToeService.getSecondPlayer()
+            userName:TicTacToeService.getPlayer()
           },
           move:{
             coords: event.target.id,
@@ -55,12 +62,12 @@ angular.module('tictactoeApp')
 
           $scope.processEvents(data.data);
 
-          console.log(data.data);
+          //console.log(data.data);
           //$scope.processEvents(data.data);
         });
       };
 
-    $scope.joinGame = function(gameID){
+    $scope.joinGame = function(){
       var postPromise = $http.post('/api/joinGame/',{
         id: TicTacToeService.getUUID(),
         cmd: 'JoinGame',
@@ -106,12 +113,31 @@ angular.module('tictactoeApp')
       var getPromise = $http.get('/api/getEvents/' + TicTacToeService.getUUID());
 
       getPromise.then(function(data) {
-        //$scope.processEvents(data.data);
-        console.log(data);
+        $scope.processPastEvents(data.data);
+        //console.log(data);
       });
     };
 
-    setInterval(function(){
+    $scope.processPastEvents = function(data){
+        data.forEach(function(event){
+          if(event.event === 'MoveMade'){
+            //console.log('test');
+            draw(event.move.coords, event.move.symbol);
+          }
+          if(event.event === 'PlayerWins'){
+            console.log(event);
+            if(event.user.userName !== TicTacToeService.getPlayer()){
+              draw(event.move.coords, event.move.symbol);
+              console.log('You Lose');
+              clearInterval(intervalID);
+            }
+          }
+        });
+
+    };
+
+
+    var intervalID = setInterval(function(){
       $scope.updateEvents();
     }, 2000);
 

@@ -11,6 +11,7 @@ angular.module('tictactoeApp')
     var gameJoined;
     var secondPlayer;
     var gameName;
+    var player;
 
 
     return {
@@ -58,6 +59,12 @@ angular.module('tictactoeApp')
       },
       getSecondPlayer: function(){
         return secondPlayer;
+      },
+      setPlayer: function(clientName){
+        player = clientName;
+      },
+      getPlayer: function(){
+        return player;
       }
 
 

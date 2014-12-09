@@ -17,7 +17,7 @@ angular.module('tictactoeApp')
     $scope.processEvents = function(events){
       $scope.processedEvents = events;
       if(events[0].event === 'GameCreated'){
-        TicTacToeService.setGameOwner($scope.userName);
+        TicTacToeService.setPlayer($scope.userName);
         TicTacToeService.setPlayerSymbol(events[0].event);
         console.log(TicTacToeService.getPlayerSymbol());
         TicTacToeService.setGameJoined(true);
