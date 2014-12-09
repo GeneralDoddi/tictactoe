@@ -57,6 +57,6 @@ angular.module('tictactoeApp')
         cxt.closePath();
       }
 
-    };
+    }
 
   });

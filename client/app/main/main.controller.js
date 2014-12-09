@@ -8,6 +8,6 @@ angular.module('tictactoeApp')
       $scope.awesomeThings = awesomeThings;
     });*/
 
-    $http.get
+
 
   });

@@ -14,8 +14,9 @@ angular.module('tictactoeApp', [
       .otherwise('/');
 
     $stateProvider.state('playgame' ,{
-      url: "/playgame",
-      templateUrl: 'app/tictactoe/tictactoeGame.html'
+      url: "/playgame/:id",
+      templateUrl: 'app/tictactoe/tictactoeGame.html',
+
     });
 
 

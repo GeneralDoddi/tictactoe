@@ -59,6 +59,7 @@ angular.module('tictactoeApp')
       });
     };
 
+    /* jshint ignore:start */
     // code found on http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
     function generateUUID(){
       var d = new Date().getTime();
@@ -68,6 +69,7 @@ angular.module('tictactoeApp')
         return (c=='x' ? r : (r&0x3|0x8)).toString(16);
       });
       return uuid;
-    };
+    }
+    /* jshint ignore:end */
 
   });
