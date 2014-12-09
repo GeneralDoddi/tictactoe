@@ -20,7 +20,7 @@ describe('Controller: TictactoeController', function(){
     httpBackend = $injector.get('$httpBackend');
 
     TicTacToeService.getNewDate = function(){
-      return "2014-01-01T03:06:00"
+      return "2014-01-01T03:06:00";
     };
     scope = $rootScope.$new();
     TictactoeControllerCtrl = $controller('TictactoeController', {
