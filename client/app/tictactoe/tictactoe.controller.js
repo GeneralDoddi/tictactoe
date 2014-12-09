@@ -4,19 +4,26 @@
 'use strict';
 
 angular.module('tictactoeApp')
-  .controller('TictactoeController', function ($scope, $http, $location, TicTacToeService) {
+  .controller('TictactoeController', function ($state, $scope, $http, $location, TicTacToeService) {
 
     $scope.playGame = false;
+
     console.log($scope.playGame);
 
     $scope.processEvents = function(events){
       $scope.processedEvents = events;
-      $location.path('/playgame');
-
+      if(data.data[0].event === 'GameCreated'){
+        TicTacToeService.setGameOwner($scope.userName);
+        TicTacToeService.setPlayerSymbol(data.data[0].event);
+        console.log(TicTacToeService.getPlayerSymbol());
+        $state.go('playgame/:id', {id: events[0].id});
+      }
     };
 
     $scope.createGame = function(){
+      /* jshint ignore:start */
       var id = generateUUID();
+      /* jshint ignore:end */
       var postPromise = $http.post('/api/createGame/',{
         id: id,
         cmd: 'CreateGame',
@@ -30,13 +37,8 @@ angular.module('tictactoeApp')
 
 
       postPromise.then(function(data){
-        console.log(data);
-        if(data.data[0].event === 'GameCreated'){
-          $scope.processEvents(data.data);
-          TicTacToeService.setGameOwner($scope.userName);
-          TicTacToeService.setPlayerSymbol(data.data[0].event);
-          console.log(TicTacToeService.getPlayerSymbol());
-        }
+        $scope.processEvents(data.data);
+
       });
     };
 

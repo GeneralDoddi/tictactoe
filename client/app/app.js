@@ -13,9 +13,9 @@ angular.module('tictactoeApp', [
       //.when('/playgame', '/playgame')
       .otherwise('/');
 
-    $stateProvider.state('playgame' ,{
+    $stateProvider.state('playgame/:id' ,{
       url: "/playgame/:id",
-      templateUrl: 'app/tictactoe/tictactoeGame.html',
+      templateUrl: 'app/tictactoe/tictactoeGame.html'
 
     });
 
