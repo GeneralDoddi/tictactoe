@@ -1,6 +1,7 @@
 /**
  * Created by thordurth on 8.12.2014.
  */
+'use strict';
 angular.module('tictactoeApp')
   .factory('TicTacToeService', function () {
 
@@ -29,5 +30,5 @@ angular.module('tictactoeApp')
       }
 
 
-    }
+    };
   });

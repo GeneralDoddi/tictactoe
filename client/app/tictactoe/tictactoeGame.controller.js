@@ -1,6 +1,8 @@
 /**
  * Created by thordurth on 8.12.2014.
  */
+'use strict';
+
 angular.module('tictactoeApp')
   .controller('TictactoeGameController', function ($scope, $http, TicTacToeService) {
 
@@ -36,8 +38,8 @@ angular.module('tictactoeApp')
 
     function draw(id, symbol){
 
-      c = document.getElementById(id);
-      cxt = c.getContext("2d");
+     var c = document.getElementById(id);
+     var cxt = c.getContext("2d");
 
       if(symbol === 'X'){
         cxt.beginPath();
@@ -55,6 +57,6 @@ angular.module('tictactoeApp')
         cxt.closePath();
       }
 
-    }
+    };
 
   });

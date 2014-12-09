@@ -57,7 +57,7 @@ angular.module('tictactoeApp')
         TicTacToeService.setGameOwner($scope.userName);
         TicTacToeService.setPlayerSymbol(data.data.event);
       });
-    }
+    };
 
     // code found on http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
     function generateUUID(){

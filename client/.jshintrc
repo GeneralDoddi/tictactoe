@@ -33,6 +33,7 @@
     "browser": true,
     "element": true,
     "by": true,
-    "afterEach" : false
+    "afterEach" : false,
+    "generateUUID" : false
   }
 }
