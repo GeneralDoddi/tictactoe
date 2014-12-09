@@ -20,6 +20,7 @@ angular.module('tictactoeApp')
         TicTacToeService.setGameOwner($scope.userName);
         TicTacToeService.setPlayerSymbol(events[0].event);
         TicTacToeService.setUUID(events[0].id);
+        TicTacToeService.setGameJoined(true);
         //console.log(TicTacToeService.getPlayerSymbol());
         $state.go('playgame/:id', {id: events[0].id});
       }
@@ -42,25 +43,6 @@ angular.module('tictactoeApp')
       postPromise.then(function(data){
         $scope.processEvents(data.data);
 
-      });
-    };
-
-    $scope.joinGame = function(gameID){
-      var postPromise = $http.post('/api/joinGame/',{
-        id: gameID,
-        cmd: 'JoinGame',
-        user:{
-          userName:$scope.userName
-        },
-        timeStamp: TicTacToeService.getNewDate()
-
-      });
-
-      postPromise.then(function(data){
-        //console.log(data.data);
-        $scope.processEvents(data.data);
-        TicTacToeService.setGameOwner($scope.userName);
-        TicTacToeService.setPlayerSymbol(data.data.event);
       });
     };
 

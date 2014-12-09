@@ -8,6 +8,7 @@ angular.module('tictactoeApp')
     var gameOwner;
     var playerSymbol;
     var gameUUID;
+    var gameJoined;
 
 
     return {
@@ -37,6 +38,12 @@ angular.module('tictactoeApp')
       },
       getNewDate: function(){
         return new Date();
+      },
+      getGameJoined: function(){
+        return gameJoined;
+      },
+      setGameJoined: function(hasJoined){
+        gameJoined = hasJoined;
       }
 
 

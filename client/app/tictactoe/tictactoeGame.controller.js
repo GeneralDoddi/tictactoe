@@ -6,6 +6,7 @@
 angular.module('tictactoeApp')
   .controller('TictactoeGameController', function ($scope, $http, TicTacToeService) {
 
+      $scope.gameJoined = TicTacToeService.getGameJoined();
 
       $scope.processEvents = function(events){
         $scope.processedEvents = events;
@@ -13,7 +14,7 @@ angular.module('tictactoeApp')
           draw(event.target.id, TicTacToeService.getPlayerSymbol());
         }
         else{
-          alert(events[0].event);
+          //alert(events[0].event);
         }
       };
 
@@ -47,6 +48,25 @@ angular.module('tictactoeApp')
         });
       };
 
+    $scope.joinGame = function(gameID){
+      var postPromise = $http.post('/api/joinGame/',{
+        id: gameID,
+        cmd: 'JoinGame',
+        user:{
+          userName:$scope.userName
+        },
+        timeStamp: TicTacToeService.getNewDate()
+
+      });
+
+      postPromise.then(function(data){
+        //console.log(data.data);
+        $scope.processEvents(data.data);
+        TicTacToeService.setGameOwner($scope.userName);
+        TicTacToeService.setPlayerSymbol(data.data.event);
+      });
+    };
+
     function draw(id, symbol){
 
      var c = document.getElementById(id);
@@ -70,6 +90,6 @@ angular.module('tictactoeApp')
 
     }
 
-    setInterval()
+    setInterval();
 
   });

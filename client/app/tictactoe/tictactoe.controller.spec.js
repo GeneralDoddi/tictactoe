@@ -12,23 +12,12 @@ describe('Controller: TictactoeController', function(){
   // load the controller's module
   beforeEach(module('tictactoeApp'));
 
-  var TictactoeControllerCtrl, scope, httpBackend, http, ticTacToeService;
-
-  module(function($provide){
-    $provide.factory('TicTacToeService',function (){
-      return {
-        getNewDate: function(){
-          return "2014-01-01T03:06:00"
-        }
-      }
-    });
-  });
+  var TictactoeControllerCtrl, scope, httpBackend, http;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($injector, $controller, $rootScope, $http, TicTacToeService) {
     http = $http;
     httpBackend = $injector.get('$httpBackend');
-    ticTacToeService = TicTacToeService;
 
     TicTacToeService.getNewDate = function(){
       return "2014-01-01T03:06:00"
