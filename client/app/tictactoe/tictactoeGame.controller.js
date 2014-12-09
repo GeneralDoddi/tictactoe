@@ -7,6 +7,7 @@ angular.module('tictactoeApp')
   .controller('TictactoeGameController', function ($scope, $http, TicTacToeService) {
 
       $scope.gameJoined = TicTacToeService.getGameJoined();
+    console.log($scope.gameJoined)
 
       $scope.processEvents = function(events){
         $scope.processedEvents = events;
@@ -90,6 +91,17 @@ angular.module('tictactoeApp')
 
     }
 
-    setInterval();
+    $scope.updateEvents = function() {
+      var getPromise = $http.get('/api/getEvents/' + TicTacToeService.getUUID());
+
+      getPromise.then(function(data) {
+        //$scope.processEvents(data.data);
+        console.log(data.data);
+      });
+    };
+
+    setInterval(function(){
+      $scope.updateEvents();
+    }, 2000);
 
   });
