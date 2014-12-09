@@ -13,8 +13,6 @@ exports.getEvents = function(req, res) {
   }
 
   var store = app.eventStore;
-  console.log("req ",req);
-  //console.log("res ",res);
 
-  res.json(store.loadEvents(req.params.id));
+  res.json(store.loadEvents(req.params.uuid));
 };

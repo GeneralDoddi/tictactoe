@@ -19,9 +19,9 @@ angular.module('tictactoeApp')
       if(events[0].event === 'GameCreated'){
         TicTacToeService.setGameOwner($scope.userName);
         TicTacToeService.setPlayerSymbol(events[0].event);
-        TicTacToeService.setUUID(events[0].id);
+        console.log(TicTacToeService.getPlayerSymbol());
         TicTacToeService.setGameJoined(true);
-        //console.log(TicTacToeService.getPlayerSymbol());
+        TicTacToeService.setGameName($scope.name);
         $state.go('playgame/:id', {id: events[0].id});
       }
     };

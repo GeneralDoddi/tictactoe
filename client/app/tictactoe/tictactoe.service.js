@@ -9,6 +9,8 @@ angular.module('tictactoeApp')
     var playerSymbol;
     var gameUUID;
     var gameJoined;
+    var secondPlayer;
+    var gameName;
 
 
     return {
@@ -18,6 +20,12 @@ angular.module('tictactoeApp')
       },
       getGameOwner: function(){
         return gameOwner;
+      },
+      setGameName: function(name){
+        gameName = name;
+      },
+      getGameName: function(){
+        return gameName;
       },
       setPlayerSymbol: function(eventString){
         if(eventString === 'GameCreated'){
@@ -44,6 +52,12 @@ angular.module('tictactoeApp')
       },
       setGameJoined: function(hasJoined){
         gameJoined = hasJoined;
+      },
+      setSecondPlayer: function(name){
+        secondPlayer = name;
+      },
+      getSecondPlayer: function(){
+        return secondPlayer;
       }
 
 

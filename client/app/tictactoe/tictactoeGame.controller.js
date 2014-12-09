@@ -4,15 +4,26 @@
 'use strict';
 
 angular.module('tictactoeApp')
-  .controller('TictactoeGameController', function ($scope, $http, TicTacToeService) {
+  .controller('TictactoeGameController', function ($stateParams, $scope, $http, TicTacToeService) {
 
+      //console.log($stateParams.id);
+      TicTacToeService.setUUID($stateParams.id);
       $scope.gameJoined = TicTacToeService.getGameJoined();
-    console.log($scope.gameJoined)
+      console.log($scope.gameJoined)
 
       $scope.processEvents = function(events){
         $scope.processedEvents = events;
+        if(events[0].event === 'GameJoined'){
+          console.log("GAME JOINED");
+          TicTacToeService.setSecondPlayer($scope.userName);
+          TicTacToeService.setPlayerSymbol(events[0].event);
+          console.log(TicTacToeService.getPlayerSymbol());
+          TicTacToeService.setGameName($scope.name);
+          TicTacToeService.setGameJoined(true);
+          $scope.gameJoined = TicTacToeService.getGameJoined();
+        }
         if(events[0].event === 'MoveMade'){
-          draw(event.target.id, TicTacToeService.getPlayerSymbol());
+          draw(events[0].move.coords, TicTacToeService.getPlayerSymbol());
         }
         else{
           //alert(events[0].event);
@@ -29,14 +40,14 @@ angular.module('tictactoeApp')
           id: TicTacToeService.getUUID(),
           cmd: 'MakeMove',
           user:{
-            userName:TicTacToeService.getGameOwner()
+            userName:TicTacToeService.getSecondPlayer()
           },
           move:{
             coords: event.target.id,
             symbol: TicTacToeService.getPlayerSymbol()
           },
-          name:$scope.name,
-          timeStamp: new Date()
+          name:TicTacToeService.getGameName(),
+          timeStamp: TicTacToeService.getNewDate()
 
         });
 
@@ -51,11 +62,12 @@ angular.module('tictactoeApp')
 
     $scope.joinGame = function(gameID){
       var postPromise = $http.post('/api/joinGame/',{
-        id: gameID,
+        id: TicTacToeService.getUUID(),
         cmd: 'JoinGame',
         user:{
-          userName:$scope.userName
+          userName:TicTacToeService.getSecondPlayer()
         },
+        //name:TicTacToeService.getGameName(),
         timeStamp: TicTacToeService.getNewDate()
 
       });
@@ -63,8 +75,7 @@ angular.module('tictactoeApp')
       postPromise.then(function(data){
         //console.log(data.data);
         $scope.processEvents(data.data);
-        TicTacToeService.setGameOwner($scope.userName);
-        TicTacToeService.setPlayerSymbol(data.data.event);
+
       });
     };
 
@@ -96,7 +107,7 @@ angular.module('tictactoeApp')
 
       getPromise.then(function(data) {
         //$scope.processEvents(data.data);
-        console.log(data.data);
+        console.log(data);
       });
     };
 
