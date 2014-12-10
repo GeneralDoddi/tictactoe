@@ -2,7 +2,7 @@
  * Created by thordurth on 8.12.2014.
  */
 
-
+'use strict';
 
 describe('Game controller for tictactoe', function(){
 
@@ -16,8 +16,7 @@ describe('Game controller for tictactoe', function(){
     http = $http;
     httpBackend = $injector.get('$httpBackend');
 
-    TicTacToeService.draw = function(id, symbol){
-      console.log("drasl");
+    TicTacToeService.draw = function(){
     };
 
     TicTacToeService.getNewDate = function(){
