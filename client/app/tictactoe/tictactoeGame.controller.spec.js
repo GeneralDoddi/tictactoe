@@ -124,5 +124,38 @@ describe('Game controller for tictactoe', function(){
 
   });
 
+  it('should fetch past events when prompted', function(){
+
+    httpBackend.expectGET('/api/getEvents/1337').respond([{
+        id:"1337",
+            event: "GameCreated",
+            user:{
+            userName:"Doddi"
+          },
+          name:"GameOfLife",
+            timeStamp:"2014-01-01T03:06:00"
+
+        },
+        {
+          id:"1337",
+          event: "GameJoined",
+          user:{
+            userName:"Gangsterinn"
+          },
+          name:"GameOfLife",
+          timeStamp:"2014-01-01T03:08:00"
+        }
+      ]
+    );
+
+
+    scope.updateEvents();
+
+    httpBackend.flush();
+    expect(scope.processPastEvents.length).toBe(2);
+
+
+  });
+
 
 });

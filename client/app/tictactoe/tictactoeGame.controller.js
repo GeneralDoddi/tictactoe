@@ -113,6 +113,8 @@ angular.module('tictactoeApp')
     };
 
     $scope.processPastEvents = function(data){
+        $scope.processPastEvents = data;
+
         data.forEach(function(event){
           if(event.event === 'MoveMade'){
             //console.log('test');
