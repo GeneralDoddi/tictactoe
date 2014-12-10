@@ -65,6 +65,26 @@ angular.module('tictactoeApp')
       },
       getPlayer: function(){
         return player;
+      },
+      draw: function(id, symbol){
+        var c = document.getElementById(id);
+        var cxt = c.getContext("2d");
+
+        if(symbol === 'X'){
+          cxt.beginPath();
+          cxt.moveTo(20, 20);
+          cxt.lineTo(80, 80);
+          cxt.moveTo(80, 20);
+          cxt.lineTo(20, 80);
+          cxt.stroke();
+          cxt.closePath();
+        }
+        else{
+          cxt.beginPath();
+          cxt.arc(50, 50, 40, 0, Math.PI * 2, true);
+          cxt.stroke();
+          cxt.closePath();
+        }
       }
 
 

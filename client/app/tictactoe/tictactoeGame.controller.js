@@ -13,6 +13,7 @@ angular.module('tictactoeApp')
 
 
       $scope.processEvents = function(events){
+
         $scope.processedEvents = events;
         if(events[0].event === 'GameJoined'){
           TicTacToeService.setPlayer($scope.userName);
@@ -24,11 +25,11 @@ angular.module('tictactoeApp')
         if(events[0].event === 'MoveMade'){
           console.log(events);
           //$scope.gamegrid[events[0].move.coords] = TicTacToeService.getPlayerSymbol();
-          draw(events[0].move.coords, TicTacToeService.getPlayerSymbol());
+          TicTacToeService.draw(events[0].move.coords, TicTacToeService.getPlayerSymbol());
         }
         if(events[0].event === 'PlayerWins'){
           console.log('you win');
-          draw(events[0].move.coords, TicTacToeService.getPlayerSymbol());
+          TicTacToeService.draw(events[0].move.coords, TicTacToeService.getPlayerSymbol());
           clearInterval(intervalID);
         }
         else{
@@ -37,11 +38,6 @@ angular.module('tictactoeApp')
       };
 
       $scope.clickbox = function(event){
-        console.log(event);
-        console.log(event.target.id);
-
-       // draw((event.target.id),'O');
-        console.log(TicTacToeService.getGameOwner());
 
         var postPromise = $http.post('/api/makeMove/',{
           id: TicTacToeService.getUUID(),
@@ -62,8 +58,6 @@ angular.module('tictactoeApp')
 
           $scope.processEvents(data.data);
 
-          //console.log(data.data);
-          //$scope.processEvents(data.data);
         });
       };
 
@@ -72,7 +66,7 @@ angular.module('tictactoeApp')
         id: TicTacToeService.getUUID(),
         cmd: 'JoinGame',
         user:{
-          userName:TicTacToeService.getSecondPlayer()
+          userName: $scope.userName
         },
         //name:TicTacToeService.getGameName(),
         timeStamp: TicTacToeService.getNewDate()
@@ -122,7 +116,7 @@ angular.module('tictactoeApp')
         data.forEach(function(event){
           if(event.event === 'MoveMade'){
             //console.log('test');
-            draw(event.move.coords, event.move.symbol);
+            TicTacToeService.draw(event.move.coords, event.move.symbol);
           }
           if(event.event === 'PlayerWins'){
             console.log(event);
