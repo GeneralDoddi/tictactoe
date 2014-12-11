@@ -113,7 +113,9 @@ describe('Game controller for tictactoe', function(){
 
     var event = {
       target: {
-        id: '1'
+        dataset: {
+          value: '1'
+        }
       }
     };
 

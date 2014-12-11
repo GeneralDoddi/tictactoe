@@ -95,8 +95,7 @@ angular.module('tictactoeApp')
     };
 
     $scope.processPastEvents = function(data){
-        //$scope.processedPastEvents = data;
-        console.log(data);
+        $scope.processedPastEvents = data;
 
         data.forEach(function(event){
           if(event.event === 'GameCreated'){
