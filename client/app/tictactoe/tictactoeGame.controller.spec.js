@@ -11,6 +11,7 @@ describe('Game controller for tictactoe', function(){
 
   var TictactoeControllerCtrl, scope, httpBackend, http;
 
+
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($injector, $controller, $rootScope, $http, TicTacToeService) {
     http = $http;
@@ -152,7 +153,7 @@ describe('Game controller for tictactoe', function(){
     scope.updateEvents();
 
     httpBackend.flush();
-    expect(scope.processPastEvents.length).toBe(2);
+    expect(scope.processedPastEvents.length).toBe(2);
 
 
   });

@@ -67,7 +67,7 @@ angular.module('tictactoeApp')
         return player;
       },
       draw: function(id, symbol){
-        var c = document.getElementById(id);
+        var c = document.getElementById("cell"+id);
         var cxt = c.getContext("2d");
 
         if(symbol === 'X'){
