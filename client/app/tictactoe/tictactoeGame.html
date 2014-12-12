@@ -1,7 +1,7 @@
 <div ng-controller="TictactoeGameController">
   <div  class="container">
     <div class = "row" ng-if="gameOver">
-      <div class="col-lg-6 col-lg-offset-2 alert alert-success text-center" role = "alert">
+      <div id ="gameOver" class="col-lg-6 col-lg-offset-2 alert alert-success text-center" role = "alert">
         <strong>{{ endGameMessage }}</strong>
       </div>
     </div>
@@ -9,10 +9,10 @@
       <div class="col-lg-9 col-lg-offset-4">
         <label for="userName">UserName</label>
         <input id="userName" ng-model="userName">
-        <button ng-click="joinGame()">Join Game</button>
+        <button id="joinGameButton" ng-click="joinGame()">Join Game</button>
       </div>
     </div>
-    <div id = "TicTacToebox" ng-show="gameJoined">
+    <div id = "TicTacToebox" ><!--ng-show="gameJoined"-->
 
       <div class = "row" ng-click="clickbox($event)">
         <div class = "col-lg-12 col-lg-offset-4">

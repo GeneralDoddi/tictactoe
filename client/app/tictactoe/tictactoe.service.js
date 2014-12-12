@@ -72,10 +72,10 @@ angular.module('tictactoeApp')
 
         if(symbol === 'X'){
           cxt.beginPath();
-          cxt.moveTo(20, 20);
-          cxt.lineTo(80, 80);
-          cxt.moveTo(80, 20);
-          cxt.lineTo(20, 80);
+          cxt.moveTo(10, 10);
+          cxt.lineTo(90, 90);
+          cxt.moveTo(90, 10);
+          cxt.lineTo(10, 90);
           cxt.stroke();
           cxt.closePath();
         }
@@ -85,6 +85,7 @@ angular.module('tictactoeApp')
           cxt.stroke();
           cxt.closePath();
         }
+
       }
 
 
