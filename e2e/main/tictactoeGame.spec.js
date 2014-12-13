@@ -16,19 +16,45 @@ describe('Tictactoe game play', function() {
     game = gameDSL(page);
   });
 
-  it('should accept game name and username and create game', function() {
-    browser.driver.wait(function(){
-      return    browser.driver.isElementPresent(by.css('.container')).then(function(el){
-        return el === true;
-      });
-    }).
-      then(function(){
-        game.nameOfGame("Cheese!");
-        game.nameOfUser("Jerry!");
-        game.createGame();
-        game.waitForTictactoePage();
-        game.cell0();
-      });
+  it('should accept game name and username and create game and make first move', function() {
+
+    game.nameOfGame("Cheese!");
+    game.nameOfUser("Jerry!");
+    game.createGame();
+    game.waitForTictactoePage();
+    game.cell0();
+
 
   });
+
+  it('should create a game and a second player joins', function() {
+
+    game.nameOfGame("GameOfLife");
+    game.nameOfUser("Doddi");
+    game.createGame();
+    game.waitForTictactoePage();
+
+    browser.getCurrentUrl().then(function(url) {
+      browser.getAllWindowHandles().then(function (handles) {
+        var firstwindow = handles[0];
+
+        browser.executeScript('window.open("'+ url +'", "second-window")');
+
+        browser.switchTo().window('second-window');
+
+        game.joinGameName("Gangsterinn");
+        game.joinGame();
+        browser.sleep(1000);
+
+        game.expectPlayerTwoNameShowing();
+
+
+
+        //browser.switchTo().window('firstwindow');
+
+
+      });
+    });
+  });
+
 });

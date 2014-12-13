@@ -4,6 +4,7 @@
 
 module.exports = function(page){
   var tictactoe;
+  var cellId;
 
   function nameOfGame(gameName) {
     page.name.sendKeys(gameName);
@@ -31,19 +32,83 @@ module.exports = function(page){
   }
 
 
-  function cell0(){
-    tictactoe.cell0.click();
-    browser.executeScript(function(){
-      var c = document.getElementById("cell0");
+  function scriptExecution(cellid){
+
+    browser.driver.executeScript(function(id){
+      var c = document.getElementById(id);
       var ctx = c.getContext("2d");
 
       return ctx.isPointInStroke(22,22);
-    }).then(function(ctx){
+    },cellid).then(function(ctx){
 
       expect(ctx).toBe(true);
     });
   }
 
+  function cell0(){
+    tictactoe.cell0.click();
+    scriptExecution('cell0');
+  }
+
+  function cell1(){
+    tictactoe.cell1.click();
+    scriptExecution('cell1');
+  }
+
+  function cell2(){
+    tictactoe.cell2.click();
+    scriptExecution('cell2');
+  }
+
+  function cell3(){
+    tictactoe.cell3.click();
+    scriptExecution('cell3');
+  }
+
+  function cell4(){
+    tictactoe.cell4.click();
+    scriptExecution('cell4');
+  }
+
+  function cell5(){
+    tictactoe.cell5.click();
+    scriptExecution('cell5');
+  }
+
+  function cell6(){
+    tictactoe.cell6.click();
+    scriptExecution('cell6');
+  }
+
+  function cell7(){
+    tictactoe.cell7.click();
+    scriptExecution('cell7');
+  }
+
+  function cell8(){
+    tictactoe.cell8.click();
+    scriptExecution('cell8');
+  }
+
+  function joinGameName(userName){
+    tictactoe.userName.sendKeys(userName);
+  }
+
+  function joinGame(){
+    tictactoe.joinGameButton.click();
+  }
+
+  function expectPlayerOneNameShowing(){
+    expect(tictactoe.playerOne.getText()).toBe('Doddi');
+  }
+
+  function expectPlayerTwoNameShowing(){
+    expect(tictactoe.playerTwo.getText()).toBe('Gangsterinn');
+  }
+
+  function waitForPage() {
+    browser.waitForAngular();
+  }
 
   return {
     nameOfGame:nameOfGame,
@@ -52,6 +117,20 @@ module.exports = function(page){
     waitForTictactoePage:waitForTictactoePage,
     expectGameBoardShowing:expectGameBoardShowing,
     expectFirstCellShowing:expectFirstCellShowing,
-    cell0:cell0
+    cell0:cell0,
+    cell1:cell1,
+    cell2:cell2,
+    cell3:cell3,
+    cell4:cell4,
+    cell5:cell5,
+    cell6:cell6,
+    cell7:cell7,
+    cell8:cell8,
+    joinGameName:joinGameName,
+    joinGame:joinGame,
+    expectPlayerOneNameShowing: expectPlayerOneNameShowing,
+    expectPlayerTwoNameShowing: expectPlayerTwoNameShowing,
+    waitForPage:waitForPage
+
   }
 };

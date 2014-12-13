@@ -17,6 +17,8 @@ var TictactoePage = function() {
   this.cell6 = element(by.css('#cell6'));
   this.cell7 = element(by.css('#cell7'));
   this.cell8 = element(by.css('#cell8'));
+  this.playerOne = element(by.css('#playerOne'));
+  this.playerTwo = element(by.css('#playerTwo'));
 };
 
 module.exports = new TictactoePage();
