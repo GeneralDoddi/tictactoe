@@ -33,6 +33,9 @@ angular.module('tictactoeApp')
           TicTacToeService.draw(events[0].move.coords, TicTacToeService.getPlayerSymbol());
           //$interval.cancel(intervalID);
         }
+        if(events[0].event === 'Draw'){
+          TicTacToeService.draw(events[0].move.coords, TicTacToeService.getPlayerSymbol());
+        }
         else{
           //console.log(events[0].event);
         }
@@ -120,6 +123,7 @@ angular.module('tictactoeApp')
 
           }
           if(event.event === 'Draw'){
+            TicTacToeService.draw(event.move.coords, event.move.symbol);
             $scope.endGameMessage = "Game Draw";
             $scope.gameOver = true;
             $interval.cancel(intervalID);

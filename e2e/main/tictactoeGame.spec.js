@@ -37,22 +37,125 @@ describe('Tictactoe game play', function() {
     browser.getCurrentUrl().then(function(url) {
       browser.getAllWindowHandles().then(function (handles) {
         var firstwindow = handles[0];
+        var secondwindow = 'second-window';
 
-        browser.executeScript('window.open("'+ url +'", "second-window")');
+        browser.executeScript('window.open("'+ url +'", "second-window","height=800,width=800,status=yes,toolbar=no,menubar=no,location=no")');
 
-        browser.switchTo().window('second-window');
+        browser.switchTo().window(secondwindow).then(function(){
+          game.joinGameName("Gangsterinn");
+          game.joinGame();
+          browser.sleep(1000);
 
-        game.joinGameName("Gangsterinn");
-        game.joinGame();
-        browser.sleep(1000);
+          game.expectPlayerTwoNameShowing();
+          game.expectPlayerOneNameShowing();
 
-        game.expectPlayerTwoNameShowing();
+          browser.switchTo().window(firstwindow).then(function(){
+            game.expectPlayerTwoNameShowing();
+          });
+        });
+      });
+    });
+  });
 
+  it('should emit a player 1 (Doddi) wins message', function() {
 
+    game.nameOfGame("GameOfLife");
+    game.nameOfUser("Doddi");
+    game.createGame();
+    game.waitForTictactoePage();
 
-        //browser.switchTo().window('firstwindow');
+    browser.getCurrentUrl().then(function(url) {
+      browser.getAllWindowHandles().then(function (handles) {
+        var firstwindow = handles[0];
+        var secondwindow = 'second-window';
 
+        browser.executeScript('window.open("'+ url +'", "second-window","height=800,width=800,status=yes,toolbar=no,menubar=no,location=no")');
 
+        browser.switchTo().window(secondwindow).then(function(){
+          game.joinGameName("Gangsterinn");
+          game.joinGame();
+          browser.sleep(1000);
+
+          game.expectPlayerTwoNameShowing();
+          game.expectPlayerOneNameShowing();
+
+          browser.switchTo().window(firstwindow).then(function(){
+            game.expectPlayerTwoNameShowing();
+            game.cell0();
+            browser.switchTo().window(secondwindow).then(function(){
+              game.cell1();
+              browser.switchTo().window(firstwindow).then(function(){
+                game.cell4();
+                browser.switchTo().window(secondwindow).then(function(){
+                  game.cell2();
+                  browser.switchTo().window(firstwindow).then(function(){
+                    game.cell8();
+                    browser.sleep(1000);
+                    game.expectGameOverMessage('Doddi wins');
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+
+  it('should emit a Game Draw message', function() {
+
+    game.nameOfGame("GameOfLife");
+    game.nameOfUser("Doddi");
+    game.createGame();
+    game.waitForTictactoePage();
+
+    browser.getCurrentUrl().then(function(url) {
+      browser.getAllWindowHandles().then(function (handles) {
+        var firstwindow = handles[0];
+        var secondwindow = 'second-window';
+
+        browser.executeScript('window.open("'+ url +'", "second-window","height=800,width=800,status=yes,toolbar=no,menubar=no,location=no")');
+
+        browser.switchTo().window(secondwindow).then(function(){
+          game.joinGameName("Gangsterinn");
+          game.joinGame();
+          browser.sleep(1000);
+
+          game.expectPlayerTwoNameShowing();
+          game.expectPlayerOneNameShowing();
+
+          browser.switchTo().window(firstwindow).then(function(){
+            game.expectPlayerTwoNameShowing();
+            game.cell0();
+            browser.switchTo().window(secondwindow).then(function(){
+              game.cell1();
+              browser.switchTo().window(firstwindow).then(function(){
+                game.cell2();
+                browser.switchTo().window(secondwindow).then(function(){
+                  game.cell4();
+                  browser.switchTo().window(firstwindow).then(function(){
+                    game.cell3();
+                    browser.switchTo().window(secondwindow).then(function() {
+                      game.cell5();
+                      browser.switchTo().window(firstwindow).then(function() {
+                        game.cell7();
+                        browser.switchTo().window(secondwindow).then(function() {
+                          game.cell6();
+                          browser.switchTo().window(firstwindow).then(function() {
+                            game.cell8();
+                            game.waitForTictactoePage();
+                            browser.sleep(1000);
+                            game.expectGameOverMessage('Game Draw');
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
       });
     });
   });

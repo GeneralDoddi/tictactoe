@@ -110,6 +110,10 @@ module.exports = function(page){
     browser.waitForAngular();
   }
 
+  function expectGameOverMessage(message){
+    expect(tictactoe.gameOver.getText()).toBe(message);
+  }
+
   return {
     nameOfGame:nameOfGame,
     nameOfUser:nameOfUser,
@@ -130,7 +134,8 @@ module.exports = function(page){
     joinGame:joinGame,
     expectPlayerOneNameShowing: expectPlayerOneNameShowing,
     expectPlayerTwoNameShowing: expectPlayerTwoNameShowing,
-    waitForPage:waitForPage
+    waitForPage:waitForPage,
+    expectGameOverMessage:expectGameOverMessage
 
   }
 };
