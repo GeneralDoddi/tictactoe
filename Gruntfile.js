@@ -454,6 +454,9 @@ module.exports = function (grunt) {
     },
 
     env: {
+      commit: {
+        NODE_ENV: 'commit'
+      },
       test: {
         NODE_ENV: 'test'
       },
