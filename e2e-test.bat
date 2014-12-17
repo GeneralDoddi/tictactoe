@@ -19,3 +19,4 @@ echo "Running e2e tests"
 call grunt test:e2e
 
 echo "Done"
+exit /b %errorlevel%
