@@ -1,8 +1,4 @@
-#!/bin/bash
-set -e
-export PATH=$PATH:/usr/local/bin
 echo Cleaning...
-rm -rf ./dist
 
 echo "Installing grunt"
 npm install grunt
