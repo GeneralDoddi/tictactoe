@@ -1,21 +1,21 @@
 echo Cleaning...
 
 echo "Installing grunt"
-npm install grunt
+call npm install grunt
 
 echo "Installing bower"
-npm install bower
+call npm install bower
 
 echo "Npm install"
-npm install
+call npm install
 
 echo "Bower install"
-bower install
+call bower install
 
 echo "Updateting web driver"
-node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update
+call node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update
 
 echo "Running e2e tests"
-grunt test:e2e
+call grunt test:e2e
 
 echo "Done"
