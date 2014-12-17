@@ -145,7 +145,7 @@ describe('Tictactoe game play', function() {
                             game.cell8();
                             game.waitForTictactoePage();
                             browser.sleep(1000);
-                            game.expectGameOverMessage('Game lol');
+                            game.expectGameOverMessage('Game Draw');
                           });
                         });
                       });
