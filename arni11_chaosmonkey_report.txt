@@ -1,0 +1,36 @@
+Ef ég bý til leik og ýti á reit kemur X, Svo bíð ég öðrum notenda í leik og hann getur ekki gert heldur þarf ég að gera aftur. Svo ég fæ að gera 2x í röð.
+
+Get alltaf gert þó ég sé ekki buinn að joina leik fæ þá bara undefined win ef ég vinn sem óskráður notandi.
+
+1. memoryStore.js
+- Tókst ekki að brjóta neitt
+
+2. gameState.js
+- Breytti notPlayerTurn úr '' yfir í 'foo'. Testin keyra. Leikur brotnar EKKI
+- Breytti remainingPlayer úr undefined yfir í 2. Testin keyra. Leikur brotnar EKKI
+- Breytti innihaldi í Gamegrid, Testin faila. Good job doddi (y)
+- Breytti úr turn % 2 í turn % 1. Testin keyra og leikur brotnar EKKI...hver er tilgangur með þessari if setningu ?
+
+
+3. ticTacToeWinConditions.js
+- Breytti síðasta win condition og setti grid[4] í grid[2] test keyra og leikur brotnar ekki...WHY DODDI ???
+
+
+Tókst ekki að brjóta bakendann, well done doddi.
+
+
+4. tictactoe.controller.js
+- Harðkóðaði dagsetingu, hefur engin áhrif á test né leik....
+- breytti TicTacToeService.setGameJoined(true) í false. Hefur engin áhrif enda get ég hvort er spilað leikinn þó engin sé búinn að joina.
+
+5. tictactoe.service.js
+- Víxlaði X og O í setPlayerSymbol. Testin keyra. Tákn eru víxluð svo O fær að gera fyrst sem er BIG NONO!!!
+- setUUID harðkóðaði '123' hefur engin áhrif....
+
+6. tictactoeGame.html
+- breytii width á canvas í 1 og test passa en leikur óspilanlegur BROOOKEN
+- víxlaði reitum og test passa en leikur óspilanlegur ! BROKEN!
+
+7. tictactoeGame.controller.js
+- ekkert sem skemmir. Gerði tilraun til að breyta cmd og eventum og bool breytum ofl. Alltaf gripu testin þetta.
+
